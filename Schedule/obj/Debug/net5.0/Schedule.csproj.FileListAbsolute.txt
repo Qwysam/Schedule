@@ -1,0 +1,17 @@
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/Schedule.deps.json
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/Schedule.runtimeconfig.json
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/Schedule.runtimeconfig.dev.json
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/Schedule.dll
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/ref/Schedule.dll
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/Schedule.pdb
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.csprojAssemblyReference.cache
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.GeneratedMSBuildEditorConfig.editorconfig
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.AssemblyInfoInputs.cache
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.AssemblyInfo.cs
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.csproj.CoreCompileInputs.cache
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.dll
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/ref/Schedule.dll
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.pdb
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.genruntimeconfig.cache
+/Users/qwysam/Projects/Schedule/Schedule/bin/Debug/net5.0/HtmlAgilityPack.dll
+/Users/qwysam/Projects/Schedule/Schedule/obj/Debug/net5.0/Schedule.csproj.CopyComplete
