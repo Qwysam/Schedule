@@ -25,6 +25,18 @@ namespace Schedule
             Console.WriteLine("Hello World!");
             List<ClassInfo> schedule = new List<ClassInfo>();
             StartCrawlAsync(schedule).GetAwaiter().GetResult();
+            string date = schedule[0].DayOfWeek;
+            for(int i = 0;i<schedule.Count - 1; i++)
+            {
+                if(schedule[i].DayOfWeek == null)
+                {
+                    schedule[i].DayOfWeek = date;
+                }
+                else
+                {
+                    date = schedule[i].DayOfWeek;
+                }
+            }
             Console.WriteLine("Complete");
         }
 
@@ -44,7 +56,6 @@ namespace Schedule
             string date_current = "";
             string time_prev = "08:00 - 09:35";
             string time_current = "";
-            data.Add(new ClassInfo());
             foreach (HtmlNode node in AlltdNodes)
             {
                 if (node.InnerText != "")
@@ -60,12 +71,14 @@ namespace Schedule
 
                         }
                         date_current = new string(char_arr).Trim();
+                        data.Add(new ClassInfo());
                         if (date_current != date_prev)
                         {
-                            date_prev = new string(char_arr).Trim();
-                            data.Add(new ClassInfo());
+                            date_prev = date_current;
+                            data[data.Count - 1].DayOfWeek = date_prev;
                         }
-                        data[data.Count-1].DayOfWeek = date_prev;
+                        else
+                            data[data.Count - 1].DayOfWeek = date_current;
                     }
                     if (node.InnerText.Contains(":"))
                     {
@@ -82,14 +95,19 @@ namespace Schedule
                     }
                     if (node.InnerText.Contains(","))
                     {
-                        if (node.HasClass("x-blue2"))
-                            data[data.Count - 1].Blue = true;
-                        string[] tmp = node.InnerText.Split(',');
-                        data[data.Count - 1].Classroom = tmp[0].Trim();
-                        data[data.Count - 1].Class = tmp[1].Trim();
-                        data[data.Count - 1].Teacher = tmp[2].Trim();
+                        if (node.HasClass("fal fa-calendar-minus"))
+                            data[data.Count - 1].Class = "No Class";
+                        else
+                        {
+                            if (node.HasClass("x-blue2"))
+                                data[data.Count - 1].Blue = true;
+                            string[] tmp = node.InnerText.Split(',');
+                            data[data.Count - 1].Classroom = tmp[0].Trim();
+                            data[data.Count - 1].Class = tmp[1].Trim();
+                            data[data.Count - 1].Teacher = tmp[2].Trim();
+                        }
                     }
-                    if (node.InnerText == "")
+                    if (node.InnerText == ""|| node.HasClass("fal fa-calendar-minus"))
                     {
                         data[data.Count - 1].Class = "No Class";
                     }
