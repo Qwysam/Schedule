@@ -10,6 +10,7 @@ namespace Schedule
 {
     class Program
     {
+        //used to stara data retrieved from html
         public class ClassInfo
         {
             public string DayOfWeek;
@@ -18,14 +19,21 @@ namespace Schedule
             public string Classroom;
             public string Class;
             public string Teacher;
+            //if true -> denominator
             public bool Blue = false;
+            //if true -> is the only class in this time window
+            public bool StaticClass = false;
         }
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //stores all objects of ClassInfo
             List<ClassInfo> schedule = new List<ClassInfo>();
+            //Calls Web Crawler
             StartCrawlAsync(schedule).GetAwaiter().GetResult();
+            //temporarily stores previous day of week
             string date = schedule[0].DayOfWeek;
+            //corrects day of week for all objects
             for(int i = 0;i<schedule.Count - 1; i++)
             {
                 if(schedule[i].DayOfWeek == null)
@@ -37,29 +45,39 @@ namespace Schedule
                     date = schedule[i].DayOfWeek;
                 }
             }
+
             Console.WriteLine("Complete");
         }
 
+        //Web Crawler
         private static async Task StartCrawlAsync(List<ClassInfo> data)
         {
-            List<ClassInfo> DataList = new List<ClassInfo>();
+            //link to the schedule
             var url = "https://profkomstud.khai.edu/schedule/group/525b";
+            //HttpClient object
             var httpClient = new HttpClient();
+            //reading html from webpage
             var html = await httpClient.GetStringAsync(url);
+            //saving html code as HtmlDocument
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(html);
+            //removing all unnecessary objects
             var table = htmlDocument.DocumentNode.Descendants("table")
                 .Where(node => node.GetAttributeValue("class", "").Equals("table")).ToList();
             var AlltdNodes = table[0].SelectNodes(".//td");
             //for checking if the next day started
             string date_prev = "Понеділок\0";
             string date_current = "";
+            //for checking of next period stated
             string time_prev = "08:00 - 09:35";
             string time_current = "";
+            //data parsing cycle
             foreach (HtmlNode node in AlltdNodes)
             {
+                //perform actions only if node has text
                 if (node.InnerText != "")
                 {
+                    //fix corrupted day of week text
                     if (node.InnerText[0] == '&')
                     {
                         string[] tmp = node.InnerText.Split(';');
@@ -72,6 +90,7 @@ namespace Schedule
                         }
                         date_current = new string(char_arr).Trim();
                         data.Add(new ClassInfo());
+                        //add new class
                         if (date_current != date_prev)
                         {
                             date_prev = date_current;
@@ -80,6 +99,7 @@ namespace Schedule
                         else
                             data[data.Count - 1].DayOfWeek = date_current;
                     }
+                    //parse start and end time
                     if (node.InnerText.Contains(":"))
                     {
                         time_current = node.InnerText;
@@ -93,6 +113,7 @@ namespace Schedule
                         data[data.Count - 1].StartTime = start_time;
                         data[data.Count - 1].EndTime = end_time;
                     }
+                    //parse classroom, teacher and class number
                     if (node.InnerText.Contains(","))
                     {
                         if (node.HasClass("fal fa-calendar-minus"))

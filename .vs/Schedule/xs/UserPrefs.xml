@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{1B44E54B-34C2-476D-96F0-A83EACFD08ED}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Schedule/Program.cs">
     <Files>
-      <File FileName="Schedule/Program.cs" Line="37" Column="1" />
+      <File FileName="Schedule/Program.cs" Line="40" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Schedule PreferredExecutionTarget="MonoDevelop.Default" />
